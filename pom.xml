@@ -1,0 +1,139 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.madbarsoft</groupId>
+  <artifactId>doctor-chamber</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>doctor-chamber-api</name>
+  <description>This is a automation software</description>
+ 
+ 
+   <parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.0.RELEASE</version>
+		<relativePath /> <!-- lookup parent from repository -->
+	</parent>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.version>1.8</java.version>
+	</properties>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+
+<!-- 		<dependency>
+			<groupId>com.oracle</groupId>
+			<artifactId>ojdbc7</artifactId>
+			<version>12.1.0</version>
+			<scope>runtime</scope>
+		</dependency> -->
+		
+<!-- 	 	<dependency>
+			<groupId>com.mysoft.report-font</groupId>
+			<artifactId>Arial</artifactId>
+			<version>1.0.1</version>
+			<scope>runtime</scope>
+		</dependency> 
+	
+	   <dependency>
+			<groupId>com.mysoft.report-font</groupId>
+			<artifactId>Arial-Narrow</artifactId>
+			<version>1.0.1</version>
+			<scope>runtime</scope>
+		</dependency> -->
+		
+<!-- 	    <dependency>
+			<groupId>com.mysoft.report-font</groupId>
+			<artifactId>Arial-Narrow-Italic</artifactId>
+			<version>1.0.1</version>
+			<scope>runtime</scope>
+		</dependency> -->
+		
+		
+		<!-- <dependency>
+			<groupId>com.mysoft.report-font</groupId>
+			<artifactId>Nikosh</artifactId>
+			<version>1.0.1</version>
+			<scope>runtime</scope>
+		</dependency> 
+		
+		<dependency>
+			<groupId>com.mysoft.report-font</groupId>
+			<artifactId>segoeui</artifactId>
+			<version>1.0.1</version>
+			<scope>runtime</scope>
+		</dependency>  -->
+		
+		<dependency>
+			<groupId>org.json</groupId>
+			<artifactId>json</artifactId>
+			<version>20180130</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>net.sf.jasperreports</groupId>
+			<artifactId>jasperreports</artifactId>
+			<version>6.4.1</version>
+		</dependency>
+
+		<dependency>
+			<groupId>net.sf.barcode4j</groupId>
+			<artifactId>barcode4j</artifactId>
+			<version>2.0</version>
+		</dependency>
+		
+	    <dependency>
+		    <groupId>org.apache.xmlgraphics</groupId>
+		    <artifactId>batik-bridge</artifactId>
+		    <version>1.10</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+		    <groupId>org.projectlombok</groupId>
+		    <artifactId>lombok</artifactId>
+		    <version>1.18.4</version><!--$NO-MVN-MAN-VER$-->
+		    <scope>provided</scope>
+		</dependency>
+		
+		
+		
+	</dependencies>
+
+
+	<build>
+	<finalName>${project.artifactId}</finalName>
+	<pluginManagement>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+			</plugin>
+		</plugins>
+	</pluginManagement>
+	</build>
+</project>
