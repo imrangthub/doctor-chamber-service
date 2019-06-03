@@ -59,4 +59,10 @@ public class PreferencesEntity extends BaseEntity implements Serializable {
 	@Column(name = "show_in_report")
 	private int preferencesShowInReport = 1; // 0 for not -- 1 for Yes --- 2 for not relevant with Report 
 	
+	@NotNull
+	@Column(name = "show_in_tab")
+	private int preferencesShowInTab = 1; // 0 for not -- 1 for Yes --- To show in home tab. 
+	
+	
+	
 }

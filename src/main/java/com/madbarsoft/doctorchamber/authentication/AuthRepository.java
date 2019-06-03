@@ -17,6 +17,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.madbarsoft.doctorchamber.app_user.AppUserRepository;
 import com.madbarsoft.doctorchamber.base.BaseRepository;
 import com.madbarsoft.doctorchamber.doctorWisePscrip.DoctorWisePscripEntity;
 import com.madbarsoft.doctorchamber.doctorWisePscrip.DoctorWisePscripService;
@@ -26,10 +27,10 @@ import com.madbarsoft.doctorchamber.util.Response;
 @Repository
 @Transactional
 public class AuthRepository extends BaseRepository {
-	
+
 	@Autowired
 	private DoctorWisePscripService doctorWisePscripService;
-	
+
 	@Autowired
 	private UserPreferencesService userPreferencesService;
 
@@ -48,15 +49,16 @@ public class AuthRepository extends BaseRepository {
 			Object checkPass = checkPassword(user.getUserName(), user.getPassword());
 			if (checkPass.equals("OK")) {
 				BigDecimal userNo = getUserNo(user.getUserName());
-				DoctorWisePscripEntity doctorWisePscripEntity = doctorWisePscripService.findbyDoctorNo(userNo.longValue());
+				DoctorWisePscripEntity doctorWisePscripEntity = doctorWisePscripService
+						.findbyDoctorNo(userNo.longValue());
 				List<Map<String, Object>> companyList = getPriviledgeCompany(userNo);
 				param.put("companyList", companyList);
 				param.put("userNo", userNo);
 				param.put("userName", user.getUserName());
-				if(doctorWisePscripEntity != null) {
+				if (doctorWisePscripEntity != null) {
 					param.put("reportLink", doctorWisePscripEntity.getPresReportEntity().getReportLink());
 					param.put("formLink", doctorWisePscripEntity.getPresFormEntity().getFormLink());
-				}else {
+				} else {
 					param.put("reportLink", "1");
 					param.put("formLink", "homeOne");
 				}

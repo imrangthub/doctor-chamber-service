@@ -14,7 +14,7 @@ public interface ConsultationService {
 
 	public Response listWithFilter(Map<String, String> queryMap);
 
-//	public Response save(ConsultationEntity brand);
+	public Response save(ConsultationEntity brand);
 //
 //	public Response update(ConsultationEntity brand);
 //
@@ -24,9 +24,9 @@ public interface ConsultationService {
 //
 	public Response findByConsultationId(ConsultationEntity reqObj);
 //
-//	public Response findByHospitalNumber(String hnNumber);
+	public Response findByHospitalNumber(String hnNumber);
 //
-//	public Response findByDocotorNo(Long doctorNo);
+	public Response findByDocotorNo(Long doctorNo);
 //
 //	public Response updateByAppointmentNo(Long appointmentNo);
 //	

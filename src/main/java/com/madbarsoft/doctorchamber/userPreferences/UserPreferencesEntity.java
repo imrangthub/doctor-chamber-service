@@ -10,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import com.madbarsoft.doctorchamber.base.BaseEntity;
 
 import lombok.Getter;
@@ -58,7 +60,12 @@ public class UserPreferencesEntity extends BaseEntity implements Serializable {
 	private int preferencesShowInReport = 1;
 	
 	@NotNull
+	@Column(name = "show_in_tab")
+	private int preferencesShowInTab = 1; // 0 for not -- 1 for Yes --- To show in home tab. 
+	
+	@NotNull
 	@Column(name = "user_no")
 	private Long userNo;                // doctorNo
 
 }
+

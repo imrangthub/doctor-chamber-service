@@ -28,6 +28,7 @@ import org.springframework.util.CollectionUtils;
 import com.madbarsoft.doctorchamber.base.BaseRepository;
 import com.madbarsoft.doctorchamber.consultation.ConsultantEntity;
 import com.madbarsoft.doctorchamber.consultation.ConsultationEntity;
+import com.madbarsoft.doctorchamber.consultation.statement.ConsultationStatementMedicareLive;
 import com.madbarsoft.doctorchamber.consultation.statement.ConsultationStatementMedicareNew;
 import com.madbarsoft.doctorchamber.pagination.DataTableRequest;
 import com.madbarsoft.doctorchamber.pagination.DataTableResults;
@@ -41,6 +42,33 @@ import com.madbarsoft.doctorchamber.vital.VitalEntity;
 public class ConsultationRepositoryMedicareNew extends BaseRepository {
 	
 	
+	
+	public Response save(ConsultationEntity reqObj) {
+		Response response = new Response();
+		
+		reqObj.setHospitalNo("HP"+System.currentTimeMillis());
+		reqObj.setConsultationId("CH"+System.currentTimeMillis());
+		reqObj.setConsultationNo(System.currentTimeMillis());
+		
+		reqObj.setDoctor_no(137l);
+		reqObj.setDoctorName("MD IMRAN HOSSAIN");
+		reqObj.setConsult_in(1l);
+		reqObj.setConsult_out(0l);
+		
+		reqObj.setConsultationDt(new Date());
+		reqObj.setAppointmentDt(new Date());
+		reqObj.setConsultationTime(new Date());
+		reqObj.setConsultationType("1");
+		
+		
+		response = baseOnlySave(reqObj);
+		if(response.isSuccess()){
+			return getSuccessResponse("Sava Success");
+		}
+		return getErrorResponse("Sava Error");
+	}
+	
+	
 	public Response listWithFilter(Map<String, String> queryMap) {
 
 		Response response = new Response();
@@ -49,7 +77,8 @@ public class ConsultationRepositoryMedicareNew extends BaseRepository {
 		
 		ConsultationEntity obj = new ConsultationEntity();
 
-		obj.setDoctor_no(101l);
+		obj.setDoctor_no(Long.parseLong(queryMap.get("doctorNo")));
+		
 		response = baseList(criteriaQuery(obj));
 		
 		System.out.println("response"+response);
@@ -58,6 +87,41 @@ public class ConsultationRepositoryMedicareNew extends BaseRepository {
 		return response;
 
 		//return getSuccessResponse("Work List Found", response);
+	}
+	
+	
+	public Response findByDoctorNo(Long doctorNo) {
+
+		Response response = new Response();
+		Connection con = null;
+		ResultSet rs = null;
+		Statement stm = null;
+		con = getOraConnection();
+
+		ConsultantEntity consultantEntity = new ConsultantEntity();
+
+
+				consultantEntity.setDoctorNo(137);
+				consultantEntity.setDoctorName("MD IMRAN HOSSAIN");
+				consultantEntity.setDoctorSignature("MBBS");
+
+
+		response.setObj(consultantEntity);
+
+		return getSuccessResponse("Consultant Information Found", response);
+	}
+	
+	
+	
+	public Response findByHospitalNumber(String hnNumber) {
+		ConsultationEntity obj = new ConsultationEntity();
+		obj.setHospitalNo(hnNumber);
+		Response response = baseSingleObject(criteriaQuery(obj));
+		if (response.isSuccess()) {
+			return response;
+		}
+
+		return getErrorResponse("Consultation Information not Found");
 	}
 	
 	public Response findByConsultationId(ConsultationEntity reqObj) {
@@ -159,6 +223,10 @@ public class ConsultationRepositoryMedicareNew extends BaseRepository {
 			}
 			if (filter.getConsultationId() != null && !filter.getConsultationId().isEmpty()) {
 				Predicate condition = builder.equal(root.get("consultationId"), filter.getConsultationId());
+				p.add(condition);
+			}
+			if (filter.getHospitalNo() != null && !filter.getHospitalNo().isEmpty()) {
+				Predicate condition = builder.equal(root.get("hospitalNo"), filter.getHospitalNo());
 				p.add(condition);
 			}
 			if (filter.getDoctor_no() != null && filter.getDoctor_no() > 0) {

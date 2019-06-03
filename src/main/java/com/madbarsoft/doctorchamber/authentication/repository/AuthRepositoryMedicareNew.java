@@ -20,6 +20,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.madbarsoft.doctorchamber.app_user.AppUserEntity;
+import com.madbarsoft.doctorchamber.app_user.AppUserRepository;
 import com.madbarsoft.doctorchamber.authentication.UserEntity;
 import com.madbarsoft.doctorchamber.base.BaseRepository;
 import com.madbarsoft.doctorchamber.doctorWisePscrip.DoctorWisePscripEntity;
@@ -31,9 +33,10 @@ import com.madbarsoft.doctorchamber.util.Response;
 public class AuthRepositoryMedicareNew extends BaseRepository {
 
 	private final Logger LOGGER = LoggerFactory.getLogger(getClass());
+	
 
 	@Autowired
-	private DoctorWisePscripService doctorWisePscripService;
+	private AppUserRepository appUserRepository;
 
 	public static Connection con;
 	
@@ -43,26 +46,31 @@ public class AuthRepositoryMedicareNew extends BaseRepository {
 		if(user.getUserName() == null && user.getPassword() == null) {
 			return getErrorResponse("User or Password not found !");
 		}
+		AppUserEntity  appUser = new AppUserEntity();
+		
+		appUser = appUserRepository.findByUserId(user.getUserName());
+		System.out.println("APP USER: "+appUser);
+		
+		if(appUser == null) {
+			return getErrorResponse("User Not found...!");
+		}else {
+			if(!appUser.getPassword().equals(user.getPassword())) {
+				return getErrorResponse("Invlaid user name or password.");	
+			}
+		}
 
 		Response response = new Response();
 		Map<String, Object> param = new HashMap<>();
+
+		param.put("empName",appUser.getEmpName());
+		param.put("userNo", appUser.getUserNo());
+		param.put("isDoctor", appUser.getIsDoctor());
+		param.put("reportLink", appUser.getReportLink());
+		param.put("formLink", "homeTwo");
+		response.setModel(param);
+		System.out.println("Login Successfully complete");
 		
-			if (checkPassword(user.getUserName(), user.getPassword())) {
-				int doctorFlag = 1;
-
-				param.put("empName", "MD IMRAN HOSSAIN");
-				param.put("userNo", 12121);
-				param.put("isDoctor", doctorFlag);
-				param.put("reportLink", "2");
-				param.put("formLink", "homeTwo");
-				response.setModel(param);
-				System.out.println("Login Successfully complete");
-				
-				return getSuccessResponse("login successfully", response);
-
-			}else {
-				return getErrorResponse("Login fail...!");
-			}
+		return getSuccessResponse("login successfully", response);
 
 	}
 	
@@ -156,6 +164,7 @@ public class AuthRepositoryMedicareNew extends BaseRepository {
 	}
 
 	public boolean checkPassword(String username, String password) {
+		
         if(username.equals("imran") && password.equals("123")) {
         	return true;
         }

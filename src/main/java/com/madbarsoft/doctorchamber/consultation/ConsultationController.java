@@ -21,10 +21,7 @@ import com.madbarsoft.doctorchamber.consultation.service.ConsultationService;
 import com.madbarsoft.doctorchamber.util.Response;
 
 
-/**
- * @author Md. Jahurul Islam
- *
- */
+
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/consulation")
@@ -37,6 +34,12 @@ public class ConsultationController {
 	public Response searchConsulation(@RequestParam Map<String, String> queryMap){
 		 return  consulationService.listWithFilter(queryMap);
 	}
+	
+	
+  @PostMapping("/create")
+  public Response create(@RequestBody ConsultationEntity reqObj) {
+  	return consulationService.save(reqObj);
+  }
 	
 //	@GetMapping("/search-registration")
 //	public Response searchRegistration(@RequestParam Map<String, String> queryMap){
