@@ -40,56 +40,51 @@ import com.madbarsoft.doctorchamber.vital.VitalEntity;
 @Repository
 @Transactional
 public class ConsultationRepositoryMedicareNew extends BaseRepository {
-	
-	
-	
+
 	public Response save(ConsultationEntity reqObj) {
 		Response response = new Response();
-		
-		reqObj.setHospitalNo("HP"+System.currentTimeMillis());
-		reqObj.setConsultationId("CH"+System.currentTimeMillis());
+
+		reqObj.setHospitalNo("HP" + System.currentTimeMillis());
+		reqObj.setConsultationId("CH" + System.currentTimeMillis());
 		reqObj.setConsultationNo(System.currentTimeMillis());
-		
+
 		reqObj.setDoctor_no(137l);
 		reqObj.setDoctorName("MD IMRAN HOSSAIN");
 		reqObj.setConsult_in(1l);
 		reqObj.setConsult_out(0l);
-		
+
 		reqObj.setConsultationDt(new Date());
 		reqObj.setAppointmentDt(new Date());
 		reqObj.setConsultationTime(new Date());
-		reqObj.setConsultationType("1");
-		
-		
+		reqObj.setConsultationType("2");
+
 		response = baseOnlySave(reqObj);
-		if(response.isSuccess()){
+		if (response.isSuccess()) {
 			return getSuccessResponse("Sava Success");
 		}
 		return getErrorResponse("Sava Error");
 	}
-	
-	
+
 	public Response listWithFilter(Map<String, String> queryMap) {
 
 		Response response = new Response();
 
 		List<ConsultationEntity> consulationEntityList = new ArrayList<ConsultationEntity>();
-		
+
 		ConsultationEntity obj = new ConsultationEntity();
 
 		obj.setDoctor_no(Long.parseLong(queryMap.get("doctorNo")));
-		
+
 		response = baseList(criteriaQuery(obj));
-		
-		System.out.println("response"+response);
-		System.out.println("response"+response.getItems());
+
+		System.out.println("response" + response);
+		System.out.println("response" + response.getItems());
 
 		return response;
 
-		//return getSuccessResponse("Work List Found", response);
+		// return getSuccessResponse("Work List Found", response);
 	}
-	
-	
+
 	public Response findByDoctorNo(Long doctorNo) {
 
 		Response response = new Response();
@@ -100,19 +95,15 @@ public class ConsultationRepositoryMedicareNew extends BaseRepository {
 
 		ConsultantEntity consultantEntity = new ConsultantEntity();
 
-
-				consultantEntity.setDoctorNo(137);
-				consultantEntity.setDoctorName("MD IMRAN HOSSAIN");
-				consultantEntity.setDoctorSignature("MBBS");
-
+		consultantEntity.setDoctorNo(137);
+		consultantEntity.setDoctorName("MD IMRAN HOSSAIN");
+		consultantEntity.setDoctorSignature("MBBS (DMC) [GoldMedalist]\nFCPS(Medicine)\nMD (Endocrinology) MAACE(USA)\nAssistant Professor\nBSMMU, Dhaka.");
 
 		response.setObj(consultantEntity);
 
 		return getSuccessResponse("Consultant Information Found", response);
 	}
-	
-	
-	
+
 	public Response findByHospitalNumber(String hnNumber) {
 		ConsultationEntity obj = new ConsultationEntity();
 		obj.setHospitalNo(hnNumber);
@@ -124,8 +115,19 @@ public class ConsultationRepositoryMedicareNew extends BaseRepository {
 		return getErrorResponse("Consultation Information not Found");
 	}
 	
+	public ConsultationEntity findByConsultationNo(Long  conslNo) {
+		ConsultationEntity obj = new ConsultationEntity();
+		obj.setConsultationNo(conslNo);
+		Response response = baseSingleObject(criteriaQuery(obj));
+		if (response.isSuccess()) {
+			return (ConsultationEntity)response.getObj();
+		}
+
+		return null;
+	}
+
 	public Response findByConsultationId(ConsultationEntity reqObj) {
-		
+
 		Response response = baseSingleObject(criteriaQuery(reqObj));
 		if (response.isSuccess()) {
 			return response;
@@ -133,7 +135,6 @@ public class ConsultationRepositoryMedicareNew extends BaseRepository {
 
 		return getErrorResponse("Consultation Information not Found");
 	}
-	
 
 	public Response listByDoctorNo(ConsultationEntity obj) {
 		return baseList(criteriaQuery(obj));
@@ -225,6 +226,10 @@ public class ConsultationRepositoryMedicareNew extends BaseRepository {
 				Predicate condition = builder.equal(root.get("consultationId"), filter.getConsultationId());
 				p.add(condition);
 			}
+			if (filter.getConsultationNo() != null && filter.getConsultationNo() > 0) {
+				Predicate condition = builder.equal(root.get("consultationNo"), filter.getConsultationNo());
+				p.add(condition);
+			}
 			if (filter.getHospitalNo() != null && !filter.getHospitalNo().isEmpty()) {
 				Predicate condition = builder.equal(root.get("hospitalNo"), filter.getHospitalNo());
 				p.add(condition);
@@ -233,12 +238,14 @@ public class ConsultationRepositoryMedicareNew extends BaseRepository {
 				Predicate condition = builder.equal(root.get("doctor_no"), filter.getDoctor_no());
 				p.add(condition);
 			}
-//			if (filter.getDoctor_no() != null && filter.getDoctor_no() > 0) {
-//				Predicate condition = builder.or(builder.equal(root.get("doctor_no"), filter.getDoctor_no()),
-//						builder.isNull(root.get("doctor_no")));
-//
-//				p.add(condition);
-//			}
+			// if (filter.getDoctor_no() != null && filter.getDoctor_no() > 0) {
+			// Predicate condition =
+			// builder.or(builder.equal(root.get("doctor_no"),
+			// filter.getDoctor_no()),
+			// builder.isNull(root.get("doctor_no")));
+			//
+			// p.add(condition);
+			// }
 		}
 
 		return p;
