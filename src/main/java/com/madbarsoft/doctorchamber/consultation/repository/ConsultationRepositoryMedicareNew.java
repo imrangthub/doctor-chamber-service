@@ -49,7 +49,7 @@ public class ConsultationRepositoryMedicareNew extends BaseRepository {
 		reqObj.setConsultationNo(System.currentTimeMillis());
 
 		reqObj.setDoctor_no(137l);
-		reqObj.setDoctorName("MD IMRAN HOSSAIN");
+		reqObj.setDoctorName("Dr. Muhammad Tawfique");
 		reqObj.setConsult_in(1l);
 		reqObj.setConsult_out(0l);
 
@@ -96,7 +96,7 @@ public class ConsultationRepositoryMedicareNew extends BaseRepository {
 		ConsultantEntity consultantEntity = new ConsultantEntity();
 
 		consultantEntity.setDoctorNo(137);
-		consultantEntity.setDoctorName("MD IMRAN HOSSAIN");
+		consultantEntity.setDoctorName("Dr. Muhammad Tawfique");
 		consultantEntity.setDoctorSignature("MBBS (DMC) [GoldMedalist]\nFCPS(Medicine)\nMD (Endocrinology) MAACE(USA)\nAssistant Professor\nBSMMU, Dhaka.");
 
 		response.setObj(consultantEntity);
