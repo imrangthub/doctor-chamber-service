@@ -25,6 +25,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.CollectionUtils;
 
+import com.madbarsoft.core.util.CommonFunctions;
 import com.madbarsoft.doctorchamber.base.BaseRepository;
 import com.madbarsoft.doctorchamber.consultation.ConsultantEntity;
 import com.madbarsoft.doctorchamber.consultation.ConsultationEntity;
@@ -40,28 +41,48 @@ import com.madbarsoft.doctorchamber.vital.VitalEntity;
 @Repository
 @Transactional
 public class ConsultationRepositoryMedicareNew extends BaseRepository {
+	
+	
+	public Response list() {
+		ConsultationEntity obj = new ConsultationEntity();
+		return baseList(criteriaQuery(obj));
+	}
 
 	public Response save(ConsultationEntity reqObj) {
 		Response response = new Response();
+		ConsultationEntity obj = new ConsultationEntity();
+		obj.setDoctor_no(reqObj.getDoctor_no());
+		obj.setConsult_out(0l);
+		Long countFound = totalCount(obj);
+		if(countFound < 10) {
+			
+			reqObj.setHospitalNo("HP" + System.currentTimeMillis());
+			reqObj.setConsultationId("CH" + System.currentTimeMillis());
+			reqObj.setConsultationNo(System.currentTimeMillis());
+			
+			reqObj.setConsult_in(1l);
+			reqObj.setConsult_out(0l);
 
-		reqObj.setHospitalNo("HP" + System.currentTimeMillis());
-		reqObj.setConsultationId("CH" + System.currentTimeMillis());
-		reqObj.setConsultationNo(System.currentTimeMillis());
+			reqObj.setConsultationDt(new Date());
+			reqObj.setAppointmentDt(new Date());
+			reqObj.setConsultationTime(new Date());
+			reqObj.setConsultationType("2");
+			
+			response = baseOnlySave(reqObj);
 
-		reqObj.setDoctor_no(137l);
-		reqObj.setDoctorName("Dr. Muhammad Tawfique");
-		reqObj.setConsult_in(1l);
-		reqObj.setConsult_out(0l);
-
-		reqObj.setConsultationDt(new Date());
-		reqObj.setAppointmentDt(new Date());
-		reqObj.setConsultationTime(new Date());
-		reqObj.setConsultationType("2");
-
-		response = baseOnlySave(reqObj);
-		if (response.isSuccess()) {
-			return getSuccessResponse("Sava Success");
+			if (response.isSuccess()) {
+				response.setObj(countFound+1);
+				response.setMessage("Success fully Appoint complete, Your Serial: "+(countFound+1));
+				return response;
+			}
+			
+		}else {
+			response.setSuccess(false);
+			response.setMessage("No avalable serial for today !");
+			return response;
 		}
+
+
 		return getErrorResponse("Sava Error");
 	}
 
@@ -86,7 +107,7 @@ public class ConsultationRepositoryMedicareNew extends BaseRepository {
 	}
 
 	public Response findByDoctorNo(Long doctorNo) {
-
+		            
 		Response response = new Response();
 		Connection con = null;
 		ResultSet rs = null;
@@ -103,6 +124,19 @@ public class ConsultationRepositoryMedicareNew extends BaseRepository {
 
 		return getSuccessResponse("Consultant Information Found", response);
 	}
+	
+	public Response findListDocotorNo(Long doctorNo) {
+
+		ConsultationEntity obj = new ConsultationEntity();
+		obj.setFromDate(new Date());
+		obj.setToDate(new Date());
+		obj.setDoctor_no(doctorNo);
+		obj.setConsult_out(0l);
+
+		return baseList(criteriaQuery(obj));
+
+	}
+
 
 	public Response findByHospitalNumber(String hnNumber) {
 		ConsultationEntity obj = new ConsultationEntity();
@@ -234,10 +268,20 @@ public class ConsultationRepositoryMedicareNew extends BaseRepository {
 				Predicate condition = builder.equal(root.get("hospitalNo"), filter.getHospitalNo());
 				p.add(condition);
 			}
+			if (filter.getConsult_out() != null && filter.getConsult_out() == 0) {
+				Predicate condition = builder.equal(root.get("consult_out"), filter.getConsult_out());
+				p.add(condition);
+			}
 			if (filter.getDoctor_no() != null && filter.getDoctor_no() > 0) {
 				Predicate condition = builder.equal(root.get("doctor_no"), filter.getDoctor_no());
 				p.add(condition);
 			}
+	       if (filter.getFromDate() != null && filter.getToDate() != null) {
+                Date fromDate = addHourMinutesSeconds(00, 00, 00, filter.getFromDate());
+                Date toDate = addHourMinutesSeconds(23, 59, 59, filter.getToDate());
+                Predicate condition = builder.between(root.get("appointmentDt"), fromDate, toDate);
+                p.add(condition);
+            }
 			// if (filter.getDoctor_no() != null && filter.getDoctor_no() > 0) {
 			// Predicate condition =
 			// builder.or(builder.equal(root.get("doctor_no"),

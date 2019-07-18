@@ -43,6 +43,23 @@ public interface CommonFunctions {
 		response.setMessage(message);
 		return response;
 	}
+	
+    default Date addHourMinutesSeconds(int hour, int minute, int second, Date date) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+
+        calendar.add(Calendar.HOUR_OF_DAY, hour);
+        calendar.add(Calendar.MINUTE, minute);
+        calendar.add(Calendar.SECOND, second);
+
+        return calendar.getTime();
+    }
+    
+    
 
 	default Response getSuccessResponse(String message, Response response) {
 		response.setSuccess(true);

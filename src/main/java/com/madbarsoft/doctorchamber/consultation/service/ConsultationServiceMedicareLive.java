@@ -61,7 +61,7 @@ public class ConsultationServiceMedicareLive implements ConsultationService {
 		return consulationRepository.findByHospitalNumber(hnNumber);
 	}
 
-	public Response findByDocotorNo(Long doctorNo) {
+	public Response findByDoctorNo(Long doctorNo) {
 		return consulationRepository.findByDoctorNo(doctorNo);
 	}
 
@@ -71,5 +71,11 @@ public class ConsultationServiceMedicareLive implements ConsultationService {
 	
 	public Response updateByAppointmentNoConsIn(Long appointmentNo) {
 		return consulationRepository.consltInByAppointmentNo(appointmentNo);
+	}
+
+	@Override
+	public Response findListDocotorNo(Long doctorNo) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

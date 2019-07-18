@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.madbarsoft.doctorchamber.base.BaseEntity;
 
@@ -81,5 +82,12 @@ public class ConsultationEntity extends BaseEntity implements Serializable {
 	private String endTime;
 
 	private Long totalRecord;
+	
+	
+	 @Transient	
+	 private Date fromDate;
+	 
+	 @Transient
+	 private Date toDate;
 
 }

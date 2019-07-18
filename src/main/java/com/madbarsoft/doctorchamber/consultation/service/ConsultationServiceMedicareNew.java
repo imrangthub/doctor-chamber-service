@@ -15,9 +15,9 @@ public class ConsultationServiceMedicareNew implements ConsultationService {
 	@Autowired
 	ConsultationRepositoryMedicareNew consulationRepository;
 
-//	public Response list() {
-//		return consulationRepository.list();
-//	}
+	public Response list() {
+		return consulationRepository.list();
+	}
 //
 //	public Response gridList(HttpServletRequest request) {
 //		return consulationRepository.gridList(request);
@@ -33,10 +33,20 @@ public class ConsultationServiceMedicareNew implements ConsultationService {
 //		return consulationRepository.registrationListWithFilter(queryMap);
 //	}
 //
-//	public Response save(ConsultationEntity brand) {
-//
-//		return consulationRepository.save(brand);
-//	}
+	public Response save(ConsultationEntity brand) {
+
+		return consulationRepository.save(brand);
+	}
+	
+	public Response findListDocotorNo(Long doctorNo) {
+		return consulationRepository.findListDocotorNo(doctorNo);
+	}
+	
+	public Response findByDoctorNo(Long doctorNo) {
+		return consulationRepository.findByDoctorNo(doctorNo);
+	}
+
+
 
 //	public Response update(ConsultationEntity brand) {
 //
@@ -44,7 +54,6 @@ public class ConsultationServiceMedicareNew implements ConsultationService {
 //	}
 //
 //	public Response remove(Long id) {
-//
 //		return consulationRepository.remove(id);
 //	}
 //
@@ -54,18 +63,22 @@ public class ConsultationServiceMedicareNew implements ConsultationService {
 //	}
 //
 	
-	public Response findByConsultationId(ConsultationEntity reqObj) {
-		return consulationRepository.findByConsultationId(reqObj);
-	}
+//	public Response findByConsultationId(ConsultationEntity reqObj) {
+//		return consulationRepository.findByConsultationId(reqObj);
+//	}
+
+//	@Override
+//	public Response save(ConsultationEntity brand) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 	
 //
 //	public Response findByHospitalNumber(String hnNumber) {
 //		return consulationRepository.findByHospitalNumber(hnNumber);
 //	}
 //
-//	public Response findByDocotorNo(Long doctorNo) {
-//		return consulationRepository.findByDoctorNo(doctorNo);
-//	}
+
 //
 //	public Response updateByAppointmentNo(Long appointmentNo) {
 //		return consulationRepository.updateByAppointmentNo(appointmentNo);

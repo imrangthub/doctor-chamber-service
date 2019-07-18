@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.madbarsoft.core.util.Def;
 import com.madbarsoft.doctorchamber.consultation.service.ConsultationService;
+import com.madbarsoft.doctorchamber.physicalExamination.PhysicalExaminationEntity;
 import com.madbarsoft.doctorchamber.util.Response;
 
 
@@ -35,11 +36,29 @@ public class ConsultationController {
 		 return  consulationService.listWithFilter(queryMap);
 	}
 	
+	@PostMapping("/list")
+    public Response getAll() {
+        return  consulationService.list();
+    }
+	
 	
   @PostMapping("/create")
   public Response create(@RequestBody ConsultationEntity reqObj) {
   	return consulationService.save(reqObj);
   }
+  
+	@GetMapping("/findByDoctorNo")
+    public Response findByDoctorNo(@RequestParam Long doctorNo) {
+	return consulationService.findByDoctorNo(doctorNo);
+   }
+	
+	@GetMapping("/findListByDoctorNo")
+	public Response findListByDoctorNo(@RequestParam Long docrotNo) {
+		
+		return consulationService.findListDocotorNo(docrotNo);
+	}
+	
+	
 	
 //	@GetMapping("/search-registration")
 //	public Response searchRegistration(@RequestParam Map<String, String> queryMap){
@@ -47,10 +66,7 @@ public class ConsultationController {
 //	}
 //
 //
-//	@PostMapping("/list")
-//    public Response getAll() {
-//        return  consulationService.list();
-//    }
+
 //    
 //
 //	@PostMapping("/gridList")
@@ -79,10 +95,10 @@ public class ConsultationController {
 //    
 	
 	
-	@PostMapping("/findByConsultationId")
-    public Response findByConsultationId(@RequestBody ConsultationEntity reqObj) {
-		return consulationService.findByConsultationId(reqObj);
-	}
+//	@PostMapping("/findByConsultationId")
+//    public Response findByConsultationId(@RequestBody ConsultationEntity reqObj) {
+//		return consulationService.findByConsultationId(reqObj);
+//	}
 	
 //	@PostMapping("/findByHospitalNumber")
 //    public Response findByHospitalNumber(@RequestBody String reqObj) {
