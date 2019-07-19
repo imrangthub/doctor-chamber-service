@@ -53,9 +53,9 @@ public class ConsultationController {
    }
 	
 	@GetMapping("/findListByDoctorNo")
-	public Response findListByDoctorNo(@RequestParam Long docrotNo) {
+	public Response findListByDoctorNo(@RequestParam Long doctorNo) {
 		
-		return consulationService.findListDocotorNo(docrotNo);
+		return consulationService.findListDocotorNo(doctorNo);
 	}
 	
 	
@@ -95,10 +95,10 @@ public class ConsultationController {
 //    
 	
 	
-//	@PostMapping("/findByConsultationId")
-//    public Response findByConsultationId(@RequestBody ConsultationEntity reqObj) {
-//		return consulationService.findByConsultationId(reqObj);
-//	}
+	@PostMapping("/findByConsultationId")
+    public Response findByConsultationId(@RequestBody ConsultationEntity reqObj) {
+		return consulationService.findByConsultationId(reqObj);
+	}
 	
 //	@PostMapping("/findByHospitalNumber")
 //    public Response findByHospitalNumber(@RequestBody String reqObj) {

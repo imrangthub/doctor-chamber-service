@@ -53,6 +53,8 @@ public class ConsultationRepositoryMedicareNew extends BaseRepository {
 		ConsultationEntity obj = new ConsultationEntity();
 		obj.setDoctor_no(reqObj.getDoctor_no());
 		obj.setConsult_out(0l);
+		obj.setFromDate(new Date());
+		obj.setToDate(new Date());
 		Long countFound = totalCount(obj);
 		if(countFound < 10) {
 			
@@ -93,7 +95,10 @@ public class ConsultationRepositoryMedicareNew extends BaseRepository {
 		List<ConsultationEntity> consulationEntityList = new ArrayList<ConsultationEntity>();
 
 		ConsultationEntity obj = new ConsultationEntity();
-
+		
+		
+		obj.setFromDate(new Date());
+		obj.setToDate(new Date());
 		obj.setDoctor_no(Long.parseLong(queryMap.get("doctorNo")));
 
 		response = baseList(criteriaQuery(obj));
@@ -113,14 +118,26 @@ public class ConsultationRepositoryMedicareNew extends BaseRepository {
 		ResultSet rs = null;
 		Statement stm = null;
 		con = getOraConnection();
-
 		ConsultantEntity consultantEntity = new ConsultantEntity();
+		consultantEntity.setDoctorNo(doctorNo);
+		
+		if(doctorNo==137){
+			consultantEntity.setDoctorName("Dr. Muhammad Tawfique");
+			consultantEntity.setDoctorSignature("MBBS (DMC) [GoldMedalist]\nFCPS(Medicine)\nMD (Endocrinology) MAACE(USA)\nAssistant Professor\nBSMMU, Dhaka.");
+			response.setObj(consultantEntity);
+			
+		}else if(doctorNo==101){
+			consultantEntity.setDoctorName("Dr. Imran Hossain");
+			consultantEntity.setDoctorSignature("MBBS (DMC) [GoldMedalist]\nFCPS(Medicine)\nMD (Endocrinology) MAACE(USA)\nAssistant Professor\nBSMMU, Dhaka.");
+			response.setObj(consultantEntity);
+		}else if(doctorNo==102){
+			consultantEntity.setDoctorName("Dr. Kamruzzaman Meya");
+			consultantEntity.setDoctorSignature("MBBS (DMC) [GoldMedalist]\nFCPS(Medicine)\nMD (Endocrinology) MAACE(USA)\nAssistant Professor\nBSMMU, Dhaka.");
+			response.setObj(consultantEntity);
+		}
+		
 
-		consultantEntity.setDoctorNo(137);
-		consultantEntity.setDoctorName("Dr. Muhammad Tawfique");
-		consultantEntity.setDoctorSignature("MBBS (DMC) [GoldMedalist]\nFCPS(Medicine)\nMD (Endocrinology) MAACE(USA)\nAssistant Professor\nBSMMU, Dhaka.");
 
-		response.setObj(consultantEntity);
 
 		return getSuccessResponse("Consultant Information Found", response);
 	}

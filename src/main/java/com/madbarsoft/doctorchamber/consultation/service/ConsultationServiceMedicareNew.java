@@ -63,9 +63,9 @@ public class ConsultationServiceMedicareNew implements ConsultationService {
 //	}
 //
 	
-//	public Response findByConsultationId(ConsultationEntity reqObj) {
-//		return consulationRepository.findByConsultationId(reqObj);
-//	}
+	public Response findByConsultationId(ConsultationEntity reqObj) {
+		return consulationRepository.findByConsultationId(reqObj);
+	}
 
 //	@Override
 //	public Response save(ConsultationEntity brand) {
@@ -74,9 +74,9 @@ public class ConsultationServiceMedicareNew implements ConsultationService {
 //	}
 	
 //
-//	public Response findByHospitalNumber(String hnNumber) {
-//		return consulationRepository.findByHospitalNumber(hnNumber);
-//	}
+	public Response findByHospitalNumber(String hnNumber) {
+		return consulationRepository.findByHospitalNumber(hnNumber);
+	}
 //
 
 //
