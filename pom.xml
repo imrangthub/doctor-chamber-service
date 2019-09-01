@@ -71,12 +71,12 @@
 			<scope>runtime</scope>
 		</dependency>  -->
 		
-		<dependency>
+<!-- 		<dependency>
 			<groupId>com.mysoft.report-font</groupId>
 			<artifactId>segoeui</artifactId>
 			<version>1.0.1</version>
 			<scope>runtime</scope>
-		</dependency>
+		</dependency> -->
 		
 		<dependency>
 			<groupId>org.json</groupId>

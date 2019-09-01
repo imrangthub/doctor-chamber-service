@@ -126,11 +126,11 @@ public class ConsultationRepositoryMedicareNew extends BaseRepository {
 			consultantEntity.setDoctorSignature("MBBS (DMC) [GoldMedalist]\nFCPS(Medicine)\nMD (Endocrinology) MAACE(USA)\nAssistant Professor\nBSMMU, Dhaka.");
 			response.setObj(consultantEntity);
 			
-		}else if(doctorNo==101){
+		}else if(doctorNo==2){
 			consultantEntity.setDoctorName("Dr. Imran Hossain");
 			consultantEntity.setDoctorSignature("MBBS (DMC) [GoldMedalist]\nFCPS(Medicine)\nMD (Endocrinology) MAACE(USA)\nAssistant Professor\nBSMMU, Dhaka.");
 			response.setObj(consultantEntity);
-		}else if(doctorNo==102){
+		}else if(doctorNo==3){
 			consultantEntity.setDoctorName("Dr. Kamruzzaman Meya");
 			consultantEntity.setDoctorSignature("MBBS (DMC) [GoldMedalist]\nFCPS(Medicine)\nMD (Endocrinology) MAACE(USA)\nAssistant Professor\nBSMMU, Dhaka.");
 			response.setObj(consultantEntity);
