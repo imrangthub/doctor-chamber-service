@@ -31,6 +31,11 @@ public class ConsultationController {
    @Autowired
    ConsultationService consulationService;
    
+	@GetMapping("/list")
+	public Response list(){
+		 return  consulationService.list();
+	}
+   
 	@GetMapping("/search-consulation")
 	public Response searchConsulation(@RequestParam Map<String, String> queryMap){
 		 return  consulationService.listWithFilter(queryMap);
