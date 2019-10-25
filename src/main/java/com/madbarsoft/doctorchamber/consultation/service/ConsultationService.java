@@ -2,14 +2,16 @@ package com.madbarsoft.doctorchamber.consultation.service;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.madbarsoft.doctorchamber.consultation.ConsultationEntity;
 import com.madbarsoft.doctorchamber.util.Response;
 
 public interface ConsultationService {
 
 	public Response list();
-	//
-	// public Response gridList(HttpServletRequest request);
+	
+	public Response gridList(HttpServletRequest request);
 
 	public Response listWithFilter(Map<String, String> queryMap);
 

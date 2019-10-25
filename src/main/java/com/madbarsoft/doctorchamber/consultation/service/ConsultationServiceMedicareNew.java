@@ -8,12 +8,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.madbarsoft.doctorchamber.consultation.ConsultationEntity;
 import com.madbarsoft.doctorchamber.consultation.repository.ConsultationRepositoryMedicareNew;
+import com.madbarsoft.doctorchamber.consultation.repository.ConsultationRepositoryMedicareDataTbl;
 import com.madbarsoft.doctorchamber.util.Response;
 
 public class ConsultationServiceMedicareNew implements ConsultationService {
 
 	@Autowired
 	ConsultationRepositoryMedicareNew consulationRepository;
+	
+	@Autowired
+	private ConsultationRepositoryMedicareDataTbl consultationRepositoryMedicareDataTbl;
+	
+	public Response gridList(HttpServletRequest request) {
+		return consultationRepositoryMedicareDataTbl.gridList(request);
+	}
 
 	public Response list() {
 		return consulationRepository.list();

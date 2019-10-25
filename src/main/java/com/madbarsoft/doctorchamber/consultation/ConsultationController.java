@@ -31,6 +31,11 @@ public class ConsultationController {
    @Autowired
    ConsultationService consulationService;
    
+	@GetMapping("/gridList")
+	public Response gridList(HttpServletRequest request) {
+		return consulationService.gridList(request);
+	}
+   
 	@GetMapping("/list")
 	public Response list(){
 		 return  consulationService.list();
